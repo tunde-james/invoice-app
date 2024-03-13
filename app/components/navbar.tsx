@@ -1,9 +1,9 @@
-import Image from 'next/image';
-import Link from 'next/link';
+import Image from "next/image";
+import Link from "next/link";
 
 function Navbar() {
   return (
-    <nav className="flex items-center justify-center bg-gun-powder text-white dark:bg-steel-gray lg:bottom-0 lg:left-0 lg:top-0 lg:flex-col lg:rounded-r-[20px]">
+    <nav className="flex items-center justify-center bg-gun-powder text-white lg:bottom-0 lg:left-0 lg:top-0 lg:flex-col lg:rounded-r-[20px] dark:bg-steel-gray">
       <Link href="/" className="mr-auto lg:mb-auto lg:ml-0">
         <Image
           src="/images/logo.png"
