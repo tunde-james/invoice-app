@@ -2,28 +2,34 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+html,
+body,
+#__next /* for Next.js */ {
+  height: 100%;
 }
 
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+    /* Colors */
+    --white: hsl(180deg 0% 100%);
+    --mirage: hsl(233deg 30% 11%);
+    --martinique: hsl(233deg 30% 21%);
+    --bunker: hsl(228deg 29% 7%);
+    --carnatrion: hsl(0deg 80% 63%);
+    --alabaster: hsl(240deg 27% 98%);
+    --purple-heart: hsl(252deg 94% 67%);
+    --medium-purple: hsl(252deg 100% 73%);
+    --steel-gray: hsl(233deg 31% 17%);
+    --link-water: hsl(231deg 73% 93%);
+    --amethyst-smoke: hsl(231deg 20% 61%);
+    --wild-blue-yonder: hsl(231deg 36% 63%);
+    --sweet-pink: hsl(0deg 100% 80%);
+    --gun-powder: hsl(231deg 20% 27%);
+    --mulled-wine: hsl(231deg 20% 36%);
   }
-}
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  body {
+  }
 }
 
 @layer utilities {
