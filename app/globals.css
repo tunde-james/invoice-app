@@ -29,6 +29,7 @@ body,
   }
 
   body {
+    @apply bg-alabaster text-wild-blue-yonder dark:bg-mirage dark:text-white;
   }
 }
 

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { ThemeSwitch } from ".";
 
 function Navbar() {
   return (
@@ -13,6 +14,10 @@ function Navbar() {
           className="bg-cover object-cover md:h-20 md:w-20 lg:h-[103px] lg:w-[103px]"
         />
       </Link>
+
+      <div className="pr-[21px] lg:pb-[21px] lg:pr-0">
+        <ThemeSwitch />
+      </div>
 
       <div className="flex items-center justify-center self-stretch border-l border-mulled-wine px-6 lg:border-l-0 lg:border-t lg:px-0 lg:py-6">
         <Image
