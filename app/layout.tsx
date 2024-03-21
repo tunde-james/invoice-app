@@ -3,6 +3,7 @@ import { League_Spartan } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "./components";
 import ThemeProvider from "./theme-provider";
+import AuthProvider from "./auth/session-provider";
 
 const league_spartan = League_Spartan({ subsets: ["latin"] });
 
@@ -19,12 +20,14 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={league_spartan.className}>
-        <ThemeProvider>
-          <div className="flex flex-col lg:min-h-screen lg:flex-row">
-            <Navbar />
-            <main>{children}</main>
-          </div>
-        </ThemeProvider>
+        <AuthProvider>
+          <ThemeProvider>
+            <div className="flex flex-col lg:min-h-screen lg:flex-row">
+              <Navbar />
+              <main>{children}</main>
+            </div>
+          </ThemeProvider>
+        </AuthProvider>
       </body>
     </html>
   );
