@@ -4,6 +4,10 @@ import {
   text,
   primaryKey,
   integer,
+  date,
+  pgEnum,
+  varchar,
+  numeric,
 } from "drizzle-orm/pg-core";
 import type { AdapterAccount } from "@auth/core/adapters";
 
@@ -58,3 +62,38 @@ export const verificationTokens = pgTable(
     compoundKey: primaryKey({ columns: [vt.identifier, vt.token] }),
   }),
 );
+
+export const billFrom = pgTable("billFrom", {
+  id: text("id").notNull().primaryKey(),
+  city: varchar("city").notNull(),
+  postCode: varchar("postCode").notNull(),
+  country: varchar("country").notNull(),
+});
+
+export const paymentTermsEnum = pgEnum("paymentTerms", [
+  "Net 1 Day",
+  "Net 7 Day",
+  "Net 14 Day",
+  "Net 20 Day",
+]);
+
+export const billTo = pgTable("billTo", {
+  id: text("id").notNull().primaryKey(),
+  clientName: varchar("clientName").notNull(),
+  clientEmail: varchar("clientEmail").notNull(),
+  streetAddress: varchar("streetAddress").notNull(),
+  city: varchar("city").notNull(),
+  postCode: varchar("postCode").notNull(),
+  country: varchar("country").notNull(),
+  invoiceDate: date("invoice").notNull(),
+  paymentTerms: paymentTermsEnum("paymentTerms").notNull(),
+  projectDescription: text("projectDescription").notNull(),
+});
+
+export const itemList = pgTable("itemList", {
+  id: text("id").notNull().primaryKey(),
+  itemName: varchar("itemName").notNull(),
+  quantity: integer("quantity").notNull(),
+  price: numeric("price").notNull(),
+  total: numeric("total").notNull(),
+});
