@@ -1,3 +1,9 @@
+DO $$ BEGIN
+ CREATE TYPE "paymentTerms" AS ENUM('Net 1 Day', 'Net 7 Day', 'Net 14 Day', 'Net 20 Day');
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "account" (
 	"userId" text NOT NULL,
 	"type" text NOT NULL,
@@ -11,6 +17,33 @@ CREATE TABLE IF NOT EXISTS "account" (
 	"id_token" text,
 	"session_state" text,
 	CONSTRAINT "account_provider_providerAccountId_pk" PRIMARY KEY("provider","providerAccountId")
+);
+--> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "invoice" (
+	"id" text PRIMARY KEY NOT NULL,
+	"bill_from_city" varchar NOT NULL,
+	"bill_from_post_code" varchar NOT NULL,
+	"bill_from_country" varchar NOT NULL,
+	"client_name" varchar NOT NULL,
+	"client_email" varchar NOT NULL,
+	"client_street_address" varchar NOT NULL,
+	"client_city" varchar NOT NULL,
+	"client_post_code" varchar NOT NULL,
+	"client_country" varchar NOT NULL,
+	"invoice_date" date NOT NULL,
+	"payment_terms" "paymentTerms" NOT NULL,
+	"project_description" text NOT NULL,
+	"created_at" timestamp NOT NULL,
+	"updated_at" timestamp NOT NULL
+);
+--> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "item_list" (
+	"id" text PRIMARY KEY NOT NULL,
+	"item_name" varchar NOT NULL,
+	"item_quantity" integer NOT NULL,
+	"item_price" numeric NOT NULL,
+	"item_total" numeric NOT NULL,
+	"item_invoice" text NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "session" (
@@ -36,6 +69,12 @@ CREATE TABLE IF NOT EXISTS "verificationToken" (
 --> statement-breakpoint
 DO $$ BEGIN
  ALTER TABLE "account" ADD CONSTRAINT "account_userId_user_id_fk" FOREIGN KEY ("userId") REFERENCES "user"("id") ON DELETE cascade ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "item_list" ADD CONSTRAINT "item_list_item_invoice_invoice_id_fk" FOREIGN KEY ("item_invoice") REFERENCES "invoice"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;

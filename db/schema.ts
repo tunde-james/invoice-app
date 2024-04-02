@@ -63,13 +63,6 @@ export const verificationTokens = pgTable(
   }),
 );
 
-export const billFrom = pgTable("billFrom", {
-  id: text("id").notNull().primaryKey(),
-  city: varchar("city").notNull(),
-  postCode: varchar("postCode").notNull(),
-  country: varchar("country").notNull(),
-});
-
 export const paymentTermsEnum = pgEnum("paymentTerms", [
   "Net 1 Day",
   "Net 7 Day",
@@ -77,23 +70,31 @@ export const paymentTermsEnum = pgEnum("paymentTerms", [
   "Net 20 Day",
 ]);
 
-export const billTo = pgTable("billTo", {
+export const invoice = pgTable("invoice", {
   id: text("id").notNull().primaryKey(),
-  clientName: varchar("clientName").notNull(),
-  clientEmail: varchar("clientEmail").notNull(),
-  streetAddress: varchar("streetAddress").notNull(),
-  city: varchar("city").notNull(),
-  postCode: varchar("postCode").notNull(),
-  country: varchar("country").notNull(),
-  invoiceDate: date("invoice").notNull(),
-  paymentTerms: paymentTermsEnum("paymentTerms").notNull(),
-  projectDescription: text("projectDescription").notNull(),
+  billFromCity: varchar("bill_from_city").notNull(),
+  billFromPostCode: varchar("bill_from_post_code").notNull(),
+  billFromCountry: varchar("bill_from_country").notNull(),
+  clientName: varchar("client_name").notNull(),
+  clientEmail: varchar("client_email").notNull(),
+  clientStreetAddress: varchar("client_street_address").notNull(),
+  clientCity: varchar("client_city").notNull(),
+  clientPostCode: varchar("client_post_code").notNull(),
+  clientCountry: varchar("client_country").notNull(),
+  invoiceDate: date("invoice_date").notNull(),
+  paymentTerms: paymentTermsEnum("payment_terms").notNull(),
+  projectDescription: text("project_description").notNull(),
+  createdAt: timestamp("created_at").notNull(),
+  updatedAt: timestamp("updated_at").notNull(),
 });
 
-export const itemList = pgTable("itemList", {
+export const itemList = pgTable("item_list", {
   id: text("id").notNull().primaryKey(),
-  itemName: varchar("itemName").notNull(),
-  quantity: integer("quantity").notNull(),
-  price: numeric("price").notNull(),
-  total: numeric("total").notNull(),
+  itemName: varchar("item_name").notNull(),
+  itemQuantity: integer("item_quantity").notNull(),
+  itemPrice: numeric("item_price").notNull(),
+  itemTotal: numeric("item_total").notNull(),
+  ItemInvoice: text("item_invoice")
+    .notNull()
+    .references(() => invoice.id),
 });

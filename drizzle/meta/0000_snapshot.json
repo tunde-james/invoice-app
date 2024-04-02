@@ -1,5 +1,5 @@
 {
-  "id": "3e5f7073-3d3c-453b-857e-58c169d1dd02",
+  "id": "875bb64d-8660-44d7-bc5e-21316cd2da46",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "5",
   "dialect": "pg",
@@ -100,6 +100,166 @@
           ]
         }
       },
+      "uniqueConstraints": {}
+    },
+    "invoice": {
+      "name": "invoice",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "bill_from_city": {
+          "name": "bill_from_city",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "bill_from_post_code": {
+          "name": "bill_from_post_code",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "bill_from_country": {
+          "name": "bill_from_country",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "client_name": {
+          "name": "client_name",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "client_email": {
+          "name": "client_email",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "client_street_address": {
+          "name": "client_street_address",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "client_city": {
+          "name": "client_city",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "client_post_code": {
+          "name": "client_post_code",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "client_country": {
+          "name": "client_country",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "invoice_date": {
+          "name": "invoice_date",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "payment_terms": {
+          "name": "payment_terms",
+          "type": "paymentTerms",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "project_description": {
+          "name": "project_description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "item_list": {
+      "name": "item_list",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "item_name": {
+          "name": "item_name",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "item_quantity": {
+          "name": "item_quantity",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "item_price": {
+          "name": "item_price",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "item_total": {
+          "name": "item_total",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "item_invoice": {
+          "name": "item_invoice",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "item_list_item_invoice_invoice_id_fk": {
+          "name": "item_list_item_invoice_invoice_id_fk",
+          "tableFrom": "item_list",
+          "tableTo": "invoice",
+          "columnsFrom": [
+            "item_invoice"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
     "session": {
@@ -221,7 +381,17 @@
       "uniqueConstraints": {}
     }
   },
-  "enums": {},
+  "enums": {
+    "paymentTerms": {
+      "name": "paymentTerms",
+      "values": {
+        "Net 1 Day": "Net 1 Day",
+        "Net 7 Day": "Net 7 Day",
+        "Net 14 Day": "Net 14 Day",
+        "Net 20 Day": "Net 20 Day"
+      }
+    }
+  },
   "schemas": {},
   "_meta": {
     "columns": {},
